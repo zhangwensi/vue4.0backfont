@@ -11,6 +11,8 @@ app.use(cors())
 const urlencodedParser = bodyParser.urlencoded({ extended: false })
 const jsonParser = bodyParser.json()
 
+const username = ''
+
 // 获取验证码接口
 app.post('/api/getSms',jsonParser,(req,res)=>{
     console.dir(req.body)
@@ -25,13 +27,17 @@ app.post('/api/getSms',jsonParser,(req,res)=>{
 
 // 注册接口
 app.post('/api/register',jsonParser,(req,res)=>{
-    // 链接数据库写入库中，校验传入邮箱是否有注册 建议返回码提供参数 message,resCode,type(用来提示框使用)
+    console.dir(req.body)
+    // 链接数据库写入库中，校验传入邮箱是否有注册 建议返回码提供参数 message,resCode,type(用来提示框使用) 
     return res.status(200).send({message:'注册成功,请重新登录',resCode: 0})
 })
 
 // 登录接口
 app.post('/api/Login',jsonParser,(req,res)=>{
-    // 判断是否有存在的则登录成功
-    return res.status(200).send({message:'登录成功',resCode: 0})
+    // 判断是否有存在的则登录成功  并且返回一个token
+    console.dir(req.body)
+    const useInfo = req.body.username
+    const userTk = Math.random().toString(36).substr(2)
+    return res.status(200).send({message:'登录成功',resCode: 0,token: userTk,username: useInfo})
 })
 app.listen(3000)
