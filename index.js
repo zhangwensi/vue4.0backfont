@@ -40,4 +40,16 @@ app.post('/api/Login',jsonParser,(req,res)=>{
     const userTk = Math.random().toString(36).substr(2)
     return res.status(200).send({message:'登录成功',resCode: 0,token: userTk,username: useInfo})
 })
+
+
+// 一级分类接口
+app.post('/api/news/AddFirstCategory',jsonParser,(req,res)=>{
+    // 先比对请求头中的token与登录的token是否一致 如不匹配直接返回错误否则返回约定的数据
+    // 暂时直接返回
+    const userIfo = req.headers // 请求头信息  
+    let id = 14
+    const cateGory = req.body.categoryName
+    return res.status(200).send({message:"添加成功",resCode: 0,data:{category:cateGory,id:id,token: userIfo.token,username: userIfo.username}})
+})
+
 app.listen(3000)
