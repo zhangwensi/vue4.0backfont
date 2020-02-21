@@ -47,9 +47,33 @@ app.post('/api/news/AddFirstCategory',jsonParser,(req,res)=>{
     // 先比对请求头中的token与登录的token是否一致 如不匹配直接返回错误否则返回约定的数据
     // 暂时直接返回
     const userIfo = req.headers // 请求头信息  
-    let id = 14
+    const id = Math.floor(Math.random () * 900)
     const cateGory = req.body.categoryName
-    return res.status(200).send({message:"添加成功",resCode: 0,data:{category:cateGory,id:id,token: userIfo.token,username: userIfo.username}})
+    return res.status(200).send({message:"添加成功",resCode: 0,data:{category_name:cateGory,id:id,token: userIfo.token,username: userIfo.username}})
 })
-
+// 获取一级分类接口
+app.post('/api/news/GetFirstCategory',jsonParser,(req,res)=>{
+    return res.status(200).send({message:"请求成功",resCode:0,data:{
+        "resCode":0,
+         "data": 
+             [
+                {
+                    id: 12,
+                    category_name: "国际信息",
+                    children: [
+                      {
+                        id: 1,
+                        category_name: "哈哈"
+                      },
+                      {
+                        id: 2,
+                        category_name: "嘻嘻"
+                      }
+                    ]
+                  }
+            ],
+        "message": "请求成功"
+        }
+        })
+})
 app.listen(3000)
