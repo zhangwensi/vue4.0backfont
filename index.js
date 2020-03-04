@@ -76,4 +76,13 @@ app.post('/api/news/GetFirstCategory',jsonParser,(req,res)=>{
         }
         })
 })
+
+// 删除一级分类接口
+app.post('/api/news/DeletFirstCategory',jsonParser,(req,res)=>{
+    return res.status(200).send({
+        message:"删除成功",
+        resCode: 0
+        // data 暂时不返回数据
+    })
+})
 app.listen(3000)
