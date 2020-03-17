@@ -70,7 +70,31 @@ app.post('/api/news/GetFirstCategory',jsonParser,(req,res)=>{
                         category_name: "嘻嘻"
                       }
                     ]
-                  }
+                },
+                {
+                    id: 13,
+                    category_name: "国内信息",
+                    children: [
+                      {
+                        id: 1,
+                        category_name: "国内1"
+                      },
+                      {
+                        id: 2,
+                        category_name: "国内2"
+                      }
+                    ]
+                },
+                {
+                    id: 14,
+                    category_name: "事件发生",
+                    children: [
+                      {
+                        id: 1,
+                        category_name: "211工程"
+                      }
+                    ]
+                }
             ],
         "message": "请求成功"
         }
@@ -84,5 +108,57 @@ app.post('/api/news/DeletFirstCategory',jsonParser,(req,res)=>{
         resCode: 0
         // data 暂时不返回数据
     })
+})
+
+//编辑一级分类接口
+app.post('/api/news/EditFirstCategory',jsonParser,(req,res)=>{
+    let reqData = req.body
+    console.dir(reqData)
+    return res.status(200).send({
+        message:"修改成功",
+        resCode: 0,
+        data:{category_name:reqData.category_name}
+    })
+})
+// 添加新闻
+app.post('/api/news/Addnews',jsonParser,(req,res)=>{
+  let reqData = req.body
+  return res.status(200).send({
+    message:"添加成功",
+    resCode: 0,
+    data:{type:reqData.type,title:reqData.title,content:reqData.content}
+  })
+})
+// 获取信息列表
+app.post('/api/getList',jsonParser,(req,res)=>{
+  let dataList = [
+    {title: '上海市普陀区金沙江路 1516 弄',category: '国内信息',date: '2020-01-09 16:25:32',user: '管理员'},
+    {title: "上海市普陀区金沙江路 1516 弄",category: "国内信息",date: '2020-01-09 16:25:32',user: "管理员"},
+    {title: "上海市普陀区金沙江路 1516 弄",category: "国内信息",date: '2020-01-09 16:25:32',user: "管理员"},
+    {title: "可以获取到 row, column, $index 和 store（table 内部的状态管理）",category: "国内信息",date: '2020-01-09 16:25:32',user: "管理员"},
+    {title: '上海市普陀区金沙江路 1516 弄',category: '国内信息',date: '2020-01-09 16:25:32',user: '管理员'},
+    {title: "上海市普陀区金沙江路 1516 弄",category: "国内信息",date: '2020-01-09 16:25:32',user: "管理员"},
+    {title: "上海市普陀区金沙江路 1516 弄",category: "国内信息",date: '2020-01-09 16:25:32',user: "管理员"},
+    {title: '上海市普陀区金沙江路 1516 弄',category: '国内信息',date: '2020-01-09 16:25:32',user: '管理员'},
+    {title: "上海市普陀区金沙江路 1516 弄",category: "国内信息",date: '2020-01-09 16:25:32',user: "管理员"},
+    {title: "上海市普陀区金沙江路 1516 弄",category: "国内信息",date: '2020-01-09 16:25:32',user: "管理员"},
+    {title: "可以获取到 row, column, $index 和 store（table 内部的状态管理）",category: "国内信息",date: '2020-01-09 16:25:32',user: "管理员"},
+    {title: '上海市普陀区金沙江路 1516 弄',category: '国内信息',date: '2020-01-09 16:25:32',user: '管理员'}
+  ]
+  let total = dataList.length
+  let currentPage = req.body.pageNumber
+  let pageSize = req.body.pageSize
+  const newDataList = []
+  if(pageSize == 10 && currentPage == 1 ) {
+    newDataList.push(dataList.slice(0,9))
+  } else if(pageSize == 10 && currentPage == 2) {
+    newDataList.push(dataList.slice(10,12))
+  }
+  return res.status(200).send({
+    message:"获取成功",
+    resCode: 0,
+    data:{data:newDataList},
+    total:total
+  })
 })
 app.listen(3000)
