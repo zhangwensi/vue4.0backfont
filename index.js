@@ -5,6 +5,8 @@ const cors = require('cors')
 // const connection =require('./sqldb')
 const tableList = require('./api/getList')
 const userInfo = require('./api/login')
+const deletList = require('./api/delList')
+
 app.use(cors())
 
 app.use(bodyParser.urlencoded({ extended: false }))
@@ -40,7 +42,7 @@ app.post('/api/getSms',jsonParser,(req,res)=>{
 // })
 
 app.post('/api/register',userInfo.register)
-app.post('/api/Login',userInfo.login)
+
 
 // 登录接口
 // app.post('/api/Login',jsonParser,(req,res)=>{
@@ -50,7 +52,7 @@ app.post('/api/Login',userInfo.login)
 //     const userTk = Math.random().toString(36).substr(2)
 //     return res.status(200).send({message:'登录成功',resCode: 0,token: userTk,username: useInfo})
 // })
-
+app.post('/api/Login',userInfo.login)
 
 // 一级分类接口
 app.post('/api/news/AddFirstCategory',jsonParser,(req,res)=>{
@@ -140,43 +142,45 @@ app.post('/api/news/Addnews',jsonParser,(req,res)=>{
   })
 })
 // 获取信息列表
-app.post('/api/getList',jsonParser,(req,res)=>{
-  let dataList = [
-    {title: '上海市普陀区金沙江路 1516 弄',category: '国内信息',date: '2020-01-09 16:25:32',user: '管理员',id:155},
-    {title: "上海市普陀区金沙江路 1517 弄",category: "国内信息",date: '2020-01-09 16:25:32',user: "管理员",id:156},
-    {title: "上海市普陀区金沙江路 1518 弄",category: "国内信息",date: '2020-01-09 16:25:32',user: "管理员",id:157},
-    {title: "可以获取到 row, column, $index 和 store（table 内部的状态管理）",category: "国内信息",date: '2020-01-09 16:25:32',user: "管理员",id:158},
-    {title: '上海市普陀区金沙江路 1519 弄',category: '国内信息',date: '2020-01-09 16:25:32',user: '管理员',id:320},
-    {title: "上海市普陀区金沙江路 1526 弄",category: "国内信息",date: '2020-01-09 16:25:32',user: "管理员",id:245},
-    {title: "上海市普陀区金沙江路 1536 弄",category: "国内信息",date: '2020-01-09 16:25:32',user: "管理员",id:1554},
-    {title: '上海市普陀区金沙江路 1546 弄',category: '国内信息',date: '2020-01-09 16:25:32',user: '管理员',id:332},
-    {title: "上海市普陀区金沙江路 1556 弄",category: "国内信息",date: '2020-01-09 16:25:32',user: "管理员",id:154},
-    {title: "上海市普陀区金沙江路 1566 弄",category: "国内信息",date: '2020-01-09 16:25:32',user: "管理员",id:9851},
-    {title: "习大大",category: "国内信息",date: '2020-01-09 16:25:32',user: "管理员",id:1547},
-    {title: '上海市普陀区金沙江路 1576 弄',category: '国内信息',date: '2020-01-09 16:25:32',user: '管理员',id:3332}
-  ]
-  let total = dataList.length
-  let currentPage = req.body.pageNumber
-  let pageSize = req.body.pageSize
-  const newDataList = []
-  if(pageSize == 10 && currentPage == 1 ) {
-    newDataList.push(dataList.slice(0,9))
-  } else if(pageSize == 10 && currentPage == 2) {
-    newDataList.push(dataList.slice(10,12))
-  }
-  return res.status(200).send({
-    message:"获取成功",
-    resCode: 0,
-    data:{data:newDataList},
-    total:total
-  })
-})
-app.post('/api/deletList',jsonParser,(req,res)=>{
-  let Id = req.body.id
-  return res.status(200).send({
-    message:"删除成功",
-    resCode: 0,
-    data:{id:Id}
-  })
-})
+app.post('/api/getList',tableList.getList)
+// app.post('/api/getList',jsonParser,(req,res)=>{
+//   let dataList = [
+//     {title: '上海市普陀区金沙江路 1516 弄',category: '国内信息',date: '2020-01-09 16:25:32',user: '管理员',id:155},
+//     {title: "上海市普陀区金沙江路 1517 弄",category: "国内信息",date: '2020-01-09 16:25:32',user: "管理员",id:156},
+//     {title: "上海市普陀区金沙江路 1518 弄",category: "国内信息",date: '2020-01-09 16:25:32',user: "管理员",id:157},
+//     {title: "可以获取到 row, column, $index 和 store（table 内部的状态管理）",category: "国内信息",date: '2020-01-09 16:25:32',user: "管理员",id:158},
+//     {title: '上海市普陀区金沙江路 1519 弄',category: '国内信息',date: '2020-01-09 16:25:32',user: '管理员',id:320},
+//     {title: "上海市普陀区金沙江路 1526 弄",category: "国内信息",date: '2020-01-09 16:25:32',user: "管理员",id:245},
+//     {title: "上海市普陀区金沙江路 1536 弄",category: "国内信息",date: '2020-01-09 16:25:32',user: "管理员",id:1554},
+//     {title: '上海市普陀区金沙江路 1546 弄',category: '国内信息',date: '2020-01-09 16:25:32',user: '管理员',id:332},
+//     {title: "上海市普陀区金沙江路 1556 弄",category: "国内信息",date: '2020-01-09 16:25:32',user: "管理员",id:154},
+//     {title: "上海市普陀区金沙江路 1566 弄",category: "国内信息",date: '2020-01-09 16:25:32',user: "管理员",id:9851},
+//     {title: "习大大",category: "国内信息",date: '2020-01-09 16:25:32',user: "管理员",id:1547},
+//     {title: '上海市普陀区金沙江路 1576 弄',category: '国内信息',date: '2020-01-09 16:25:32',user: '管理员',id:3332}
+//   ]
+//   let total = dataList.length
+//   let currentPage = req.body.pageNumber
+//   let pageSize = req.body.pageSize
+//   const newDataList = []
+//   if(pageSize == 10 && currentPage == 1 ) {
+//     newDataList.push(dataList.slice(0,9))
+//   } else if(pageSize == 10 && currentPage == 2) {
+//     newDataList.push(dataList.slice(10,12))
+//   }
+//   return res.status(200).send({
+//     message:"获取成功",
+//     resCode: 0,
+//     data:{data:newDataList},
+//     total:total
+//   })
+// })
+// app.post('/api/deletList',jsonParser,(req,res)=>{
+//   let Id = req.body.id
+//   return res.status(200).send({
+//     message:"删除成功",
+//     resCode: 0,
+//     data:{id:Id}
+//   })
+// })
+app.post('/api/deletList',deletList.delList)
 app.listen(3000)
