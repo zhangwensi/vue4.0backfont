@@ -6,6 +6,7 @@ const cors = require('cors')
 const tableList = require('./api/getList')
 const userInfo = require('./api/login')
 const deletList = require('./api/delList')
+const addList = require('./api/addNews')
 
 app.use(cors())
 
@@ -70,7 +71,7 @@ app.post('/api/news/GetFirstCategory',jsonParser,(req,res)=>{
          "data": 
              [
                 {
-                    id: 12,
+                    id: 2,
                     category_name: "国际信息",
                     children: [
                       {
@@ -84,7 +85,7 @@ app.post('/api/news/GetFirstCategory',jsonParser,(req,res)=>{
                     ]
                 },
                 {
-                    id: 13,
+                    id: 1,
                     category_name: "国内信息",
                     children: [
                       {
@@ -98,7 +99,7 @@ app.post('/api/news/GetFirstCategory',jsonParser,(req,res)=>{
                     ]
                 },
                 {
-                    id: 14,
+                    id: 3,
                     category_name: "事件发生",
                     children: [
                       {
@@ -133,14 +134,17 @@ app.post('/api/news/EditFirstCategory',jsonParser,(req,res)=>{
     })
 })
 // 添加新闻
-app.post('/api/news/Addnews',jsonParser,(req,res)=>{
-  let reqData = req.body
-  return res.status(200).send({
-    message:"添加成功",
-    resCode: 0,
-    data:{type:reqData.type,title:reqData.title,content:reqData.content}
-  })
-})
+app.post('/api/news/Addnews',addList.addList)
+// 修改新闻列表接口
+app.post('/api/editNews',addList.editList)
+// app.post('/api/news/Addnews',jsonParser,(req,res)=>{
+//   let reqData = req.body
+//   return res.status(200).send({
+//     message:"添加成功",
+//     resCode: 0,
+//     data:{type:reqData.type,title:reqData.title,content:reqData.content}
+//   })
+// })
 // 获取信息列表
 app.post('/api/getList',tableList.getList)
 // app.post('/api/getList',jsonParser,(req,res)=>{

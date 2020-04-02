@@ -51,8 +51,7 @@ const delList = function(req,res){
                     console.log("数据库连接失败"+error)
                     res.status(200).send({resCode:1,msg:"数据库连接失败"})
                 } else {
-                console.log(data)
-                console.log('111111111')
+                // console.log(data)
                    res.status(200).send({message:'删除成功',resCode: 0})
                 }
                 flag = false
