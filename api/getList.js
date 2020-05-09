@@ -31,11 +31,11 @@ let getList = (req,res)=>{
     var sqlArr = ''
     var callback = (error,data) =>{
         if(error) {
-            console.log("11111数据库连接失败"+error)
+            console.log("数据库连接失败"+error)
             res.status(200).send({resCode:1,msg:"数据库连接失败"})
         } else {
             let newDataList = data
-           res.status(200).send({message:'验证码已发送成功',resCode: 0,data:newDataList,total})
+           res.status(200).send({message:'请求成功',resCode: 0,data:newDataList,total})
         }
     }
     dbGetlist.sqlConnection(sql,sqlArr,callback)
