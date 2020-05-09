@@ -7,6 +7,8 @@ const tableList = require('./api/getList')
 const userInfo = require('./api/login')
 const deletList = require('./api/delList')
 const addList = require('./api/addNews')
+const editeSh = require('./api/editSearch')
+const getUser = require('./api/getUser')
 
 app.use(cors())
 
@@ -187,4 +189,13 @@ app.post('/api/getList',tableList.getList)
 //   })
 // })
 app.post('/api/deletList',deletList.delList)
-app.listen(3000)
+
+app.post('/api/aaa',jsonParser,(req,res)=>{
+  return res.status(200).send({data:[{id:1,title:'xxx'},{id:2,title:'sss'}]})
+})
+app.post('/api/editeSearch',editeSh.editSearch)
+
+// 查询用户信息
+app.get('/api/getUser',getUser.getUserDate)
+
+app.listen(3300)

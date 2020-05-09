@@ -4,7 +4,6 @@ const urlencodedParser = bodyParser.urlencoded({ extended: false })
 const jsonParser = bodyParser.json()
 
 let register =  (req,res)=>{
-    console.log(req.body)
     let username = req.body.username
     let password = req.body.password
     let user = [username,password]
@@ -24,7 +23,7 @@ let login = (req,res)=>{
     let username = req.body.username
     let password = req.body.password
     let userTk = Math.random().toString(36).substr(2)
-    let sql = "select * from userinfo where username='"+username+"'and password='"+password+"'"
+    let sql = "select username,password from userinfo where username='"+username+"'and password='"+password+"'"
     let callback=(error,data)=>{
         if(error) {
             res.status(200).send({message:'登录失败，失败原因为'+error})
