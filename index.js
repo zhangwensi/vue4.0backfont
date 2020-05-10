@@ -196,6 +196,6 @@ app.post('/api/aaa',jsonParser,(req,res)=>{
 app.post('/api/editeSearch',editeSh.editSearch)
 
 // 查询用户信息
-app.get('/api/getUser',getUser.getUserDate)
+app.post('/api/getUser',getUser.getUserDate)
 
 app.listen(3300)
