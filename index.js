@@ -9,6 +9,7 @@ const deletList = require('./api/delList')
 const addList = require('./api/addNews')
 const editeSh = require('./api/editSearch')
 const getUser = require('./api/getUser')
+const getCity = require('./api/cityPicker')
 
 app.use(cors())
 
@@ -197,5 +198,7 @@ app.post('/api/editeSearch',editeSh.editSearch)
 
 // 查询用户信息
 app.post('/api/getUser',getUser.getUserDate)
+
+app.post('/api/getCityPicker',getCity.provincePicker)
 
 app.listen(3300)
