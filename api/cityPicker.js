@@ -10,6 +10,7 @@ const provincePicker =(req,res) =>{
     // 
     if(reqData.type==='province') {
         let pathPicker = process.cwd()+'/json/province.json'
+        try{
             fs.readFile(pathPicker,'utf8',(err,data)=>{
                 if (err) {
                     return console.dir(err)
@@ -17,19 +18,31 @@ const provincePicker =(req,res) =>{
                 let  provinceData = JSON.parse(data)
                 res.status(200).send({resCode:0,msg:'请求成功',data:provinceData})
             })
+        }catch(err){
+            // 打印错误信息 入debuger
+            console.log(err)
+        }finally {
+            console.log("province 已执行")
+        }
     }else if(reqData.type==='city') {
         let cityPathPicker = process.cwd()+'/json/city.json'
         let cityDatas = []
-        fs.readFile(cityPathPicker,'utf8',(err,data)=>{
-            if (err) {
-                return console.dir(err)
-            }
-            let  cityData = JSON.parse(data)
-            cityData.filter(item=>item.province === reqData.province).forEach((key)=>{
-                cityDatas.push(key)
+        try {
+            fs.readFile(cityPathPicker,'utf8',(err,data)=>{
+                if (err) {
+                    return console.dir(err)
+                }
+                let  cityData = JSON.parse(data)
+                cityData.filter(item=>item.province === reqData.province).forEach((key)=>{
+                    cityDatas.push(key)
+                })
+                res.status(200).send({resCode:0,msg:'请求成功',data:cityDatas})
             })
-            res.status(200).send({resCode:0,msg:'请求成功',data:cityDatas})
-        })
+        } catch(err) {
+            console.log(err)
+        } finally {
+            console.log("province 已执行")
+        }
     } else if(reqData.type==='area'){
         let areaPathPicker = process.cwd()+'/json/area.json'
         fs.readFile(areaPathPicker,'utf8',(err,data)=>{
@@ -43,6 +56,7 @@ const provincePicker =(req,res) =>{
         })
     } else {
         let twonPathPicker = process.cwd()+'/json/town.json'
+        try {
         fs.readFile(twonPathPicker,'utf8',(err,data)=>{
             if (err) {
                 return console.dir(err)
@@ -53,6 +67,11 @@ const provincePicker =(req,res) =>{
             let townDatas = midTownData.filter(item=>item.area === reqData.area)
             res.status(200).send({resCode:0,msg:'请求成功',data:townDatas})
         })
+        } catch (err) {
+            console.log(err)
+        } finally {
+            console.log("province 已执行")
+        }
     }
 }
 
