@@ -10,6 +10,7 @@ const addList = require('./api/addNews')
 const editeSh = require('./api/editSearch')
 const getUser = require('./api/getUser')
 const getCity = require('./api/cityPicker')
+const addUserInfo = require('./api/addUsers')
 
 app.use(cors())
 
@@ -200,5 +201,9 @@ app.post('/api/editeSearch',editeSh.editSearch)
 app.post('/api/getUser',getUser.getUserDate)
 
 app.post('/api/getCityPicker',getCity.provincePicker)
+
+// 增加用户信息
+
+app.post('/api/addUser',addUserInfo.addUser)
 
 app.listen(3300)
