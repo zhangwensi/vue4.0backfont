@@ -11,6 +11,7 @@ const editeSh = require('./api/editSearch')
 const getUser = require('./api/getUser')
 const getCity = require('./api/cityPicker')
 const addUserInfo = require('./api/addUsers')
+const delUserInfo = require('./api/delSomeUser')
 
 app.use(cors())
 
@@ -205,5 +206,8 @@ app.post('/api/getCityPicker',getCity.provincePicker)
 // 增加用户信息
 
 app.post('/api/addUser',addUserInfo.addUser)
+
+// 批量删除用户
+app.post('/api/delSomeUser',delUserInfo.delInfo)
 
 app.listen(3300)
