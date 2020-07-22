@@ -16,7 +16,7 @@ const addUser = (req, res) => {
     let state = req.body.state || 0
     let userinfo = [username, email, password, phone, address, role, realname, state]
     // 开始插入对应的userinfo表中
-    let sql = `insert into userinfo (username,password,email,phone,address,role,realname,state) values 
+    let sql = `insert into userinfo (username,email,password,phone,address,role,realname,state) values 
     (?,?,?,?,?,?,?,?)`
     // let sql = `insert into userinfo (username,password,email,phone,address,role,realname,state) values 
     // ('${username}','${password}'，'${email}','${phone}','${address}','${role}','${realname}',${state})`
