@@ -2,7 +2,13 @@ const delSbUser = require('../utils/mysqldb')
 
 const delInfo = (req, res) => {
     // 获取前端穿过来的phone(数组形式)
-    const reqData = req.body.phone.join()
+    let reqData = ''
+    console.dir(req.body.phone)
+    if ( req.body.phone ) {
+        reqData = req.body.phone
+    } else  {
+        reqData = req.body.phone.join()
+    }
     sql = `select * from userinfo  where phone in (${reqData})`
     sqlArr = []
     delSbUser.pool.getConnection((error, connection) => {
