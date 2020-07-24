@@ -12,6 +12,8 @@ const getUser = require('./api/getUser')
 const getCity = require('./api/cityPicker')
 const addUserInfo = require('./api/addUsers')
 const delUserInfo = require('./api/delSomeUser')
+const changeState = require('./api/changeState')
+const editUserApi = require('./api/editUser')
 
 app.use(cors())
 
@@ -209,5 +211,11 @@ app.post('/api/addUser',addUserInfo.addUser)
 
 // 批量删除用户
 app.post('/api/delSomeUser',delUserInfo.delInfo)
+
+// 更改用户状态
+app.post('/api/userState',changeState.userState)
+
+// 编辑获取用户数据
+app.post('/api/editUserApi',editUserApi.editUserSearch)
 
 app.listen(3300)
