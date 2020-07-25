@@ -10,13 +10,12 @@ const pageTotal = function(){
             console.log('求其总量连接错误')
         }else {
             connection.query(sql2,sqlArr2,(error,result,fields)=>{
-                total = result[0]
+                total = result
             })
             connection.release()
         }
     })
 }
-
 const getUserDate = (req,res) =>{
     pageTotal()
     // 接受传入初始页码及显示页数
@@ -24,19 +23,22 @@ const getUserDate = (req,res) =>{
     var currentPage = parseInt(req.body.currentPage) || 1
     var pageSize = parseInt(req.body.pageSize) || 10
     let sql = `select email,phone,address,role,realname,state from userinfo limit ${(currentPage-1)*pageSize} , ${currentPage*pageSize}`
+    var sqlArr = ''
     let callback=(error,data)=>{
         if(error) {
             res.status(200).send({message:'请求失败，失败原因为'+error})
         }else {
             if(data.length!==0) {
                 let userDate = data
-                res.status(200).send({message:'请求成功',resCode: 0,data:userDate,total})
+                // 改变total的指向  否则读取的为缓存的值
+                let _total= total[0]
+                res.status(200).send({message:'请求成功',resCode: 0,data:userDate,total:_total})
             }else {
                 res.status(200).send({message:'数据不存在',resCode: 1})
             }
         }
     }
-    dbUserList.sqlConnection(sql,callback)
+    dbUserList.sqlConnection(sql,sqlArr,callback)
 }
 
 module.exports={getUserDate};

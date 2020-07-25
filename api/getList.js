@@ -12,6 +12,7 @@ const pageTotal = function () {
         } else {
             connection.query(sql2, sqlArr2, (error, result, fields) => {
                 total = result
+                console.log(result)
             })
             connection.release()
         }

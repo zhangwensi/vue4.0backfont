@@ -43,7 +43,7 @@ const delInfo = (req, res) => {
                                         } else {
                                             connection.query(sql3,sqlArr3,(error,result3,fields) => {
                                                 // console.log('sql3'+result) 
-                                                console.log(fields)
+                                                // console.log(fields)
                                                 if (result) {
                                                     res.status(200).send({message:'删除成功',resCode: 0})
                                                 } else {
